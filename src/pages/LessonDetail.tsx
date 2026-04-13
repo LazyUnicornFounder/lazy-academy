@@ -396,7 +396,7 @@ const LessonDetail = () => {
 
           {/* Quiz */}
           {content.quiz && content.quiz.length > 0 && (
-            <QuizComponent questions={content.quiz} onComplete={() => {}} />
+            <QuizComponent questions={content.quiz} onComplete={(score) => { quizScoreRef.current = score; }} />
           )}
 
           {/* Mark Complete */}
