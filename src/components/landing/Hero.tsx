@@ -88,7 +88,7 @@ const Hero = () => {
           </Button>
         </div>
 
-        <p className="text-xs text-muted-foreground mt-4">Trusted by 2,400+ parents worldwide</p>
+        
 
         {/* Subject ticker */}
         <div className="mt-12 relative space-y-3">
