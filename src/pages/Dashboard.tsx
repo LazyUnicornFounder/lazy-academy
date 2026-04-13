@@ -293,6 +293,24 @@ const Dashboard = () => {
             </Button>
             <Button
               variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-[#87867f] hover:text-[#141413]"
+              onClick={() => navigate("/app/parent")}
+              title="Parent Dashboard"
+            >
+              <Users className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-[#87867f] hover:text-[#141413]"
+              onClick={() => navigate("/app/settings")}
+              title="Settings"
+            >
+              <Settings className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
               size="sm"
               onClick={async () => { await signOut(); navigate("/"); }}
               className="text-[#87867f] hover:text-[#141413]"
