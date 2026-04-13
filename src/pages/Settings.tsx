@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Bell, Clock, LogOut, Trash2, User, Volume2, VolumeX } from "lucide-react";
+import { Bell, Clock, LogOut, Trash2, User, Volume2, VolumeX } from "lucide-react";
+import AppNav from "@/components/AppNav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -118,14 +119,7 @@ const Settings = () => {
 
   return (
     <div className="min-h-screen bg-[#f5f4ed]">
-      <header className="border-b border-[#e5e4de] bg-[#faf9f5]">
-        <div className="container flex h-14 items-center gap-3">
-          <button onClick={() => navigate("/app")} className="text-[#87867f] hover:text-[#141413] transition-colors">
-            <ArrowLeft className="h-5 w-5" />
-          </button>
-          <h1 className="font-serif text-lg text-[#141413]">Settings</h1>
-        </div>
-      </header>
+      <AppNav />
 
       <div className="container max-w-lg py-8 space-y-6">
         {/* Profile */}

@@ -4,7 +4,8 @@ import { Navigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Star } from "lucide-react";
+import { Star } from "lucide-react";
+import AppNav from "@/components/AppNav";
 import { BADGE_CONFIG, ACCESSORY_UNLOCKS, calculateLevel, xpForNextLevel, getUnlockedAccessories } from "@/lib/engagement";
 
 const AVATARS: Record<string, string> = {
@@ -64,14 +65,7 @@ const MyStuff = () => {
 
   return (
     <div className="min-h-screen bg-[#f5f4ed]">
-      <header className="border-b border-[#e5e4de] bg-[#faf9f5]">
-        <div className="container max-w-2xl flex items-center gap-3 h-14">
-          <Link to="/app" className="text-[#87867f] hover:text-[#141413] transition-colors">
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
-          <h1 className="font-serif text-lg text-[#141413]">My Stuff</h1>
-        </div>
-      </header>
+      <AppNav />
 
       <div className="container max-w-2xl py-8 space-y-8">
         {/* Child tabs */}

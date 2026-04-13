@@ -5,9 +5,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowLeft, BookOpen, Wrench, Headphones, Gamepad2, HelpCircle,
+  BookOpen, Wrench, Headphones, Gamepad2, HelpCircle,
   Check, X, ChevronRight, Clock, Sparkles, Star, Flag,
 } from "lucide-react";
+import AppNav from "@/components/AppNav";
 import { MatchingExercise } from "@/components/exercises/MatchingExercise";
 import { FillBlankExercise } from "@/components/exercises/FillBlankExercise";
 import { SortingExercise } from "@/components/exercises/SortingExercise";
@@ -362,21 +363,17 @@ const LessonDetail = () => {
       )}
 
       {/* Header */}
-      <header className="border-b border-[#e5e4de] bg-[#faf9f5]">
-        <div className="container max-w-2xl flex items-center gap-3 h-14">
-          <button onClick={() => navigate("/app")} className="text-[#87867f] hover:text-[#141413] transition-colors">
-            <ArrowLeft className="h-5 w-5" />
-          </button>
-          {module && (
-            <div className="flex items-center gap-1.5 text-xs text-[#87867f]">
-              <span>{module.theme_emoji}</span>
-              <span>Week {module.week_number}</span>
-              <ChevronRight className="h-3 w-3" />
-              <span className="text-[#5e5d59]">Day {lesson.day_number}</span>
-            </div>
-          )}
-        </div>
-      </header>
+      <AppNav />
+      <div className="container max-w-2xl py-2">
+        {module && (
+          <div className="flex items-center gap-1.5 text-xs text-[#87867f]">
+            <span>{module.theme_emoji}</span>
+            <span>Week {module.week_number}</span>
+            <ChevronRight className="h-3 w-3" />
+            <span className="text-[#5e5d59]">Day {lesson.day_number}</span>
+          </div>
+        )}
+      </div>
 
       <div className="container max-w-2xl py-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">

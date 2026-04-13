@@ -5,9 +5,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import {
-  ArrowLeft, TrendingUp, Flame, Trophy, BookOpen, Star,
+  TrendingUp, Flame, Trophy, BookOpen, Star,
   Clock, Calendar, Palette, ChevronRight, BarChart3, Eye, RefreshCw,
 } from "lucide-react";
+import AppNav from "@/components/AppNav";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
@@ -191,14 +192,7 @@ const ParentDashboard = () => {
   return (
     <div className="min-h-screen bg-[#f5f4ed]">
       {/* Header */}
-      <header className="border-b border-[#e5e4de] bg-[#faf9f5]">
-        <div className="container flex h-14 items-center gap-3">
-          <button onClick={() => navigate("/app")} className="text-[#87867f] hover:text-[#141413] transition-colors">
-            <ArrowLeft className="h-5 w-5" />
-          </button>
-          <h1 className="font-serif text-lg text-[#141413]">Parent Dashboard</h1>
-        </div>
-      </header>
+      <AppNav />
 
       <div className="container max-w-3xl py-8">
         {/* Child tabs */}
