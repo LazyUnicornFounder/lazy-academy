@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      badges: {
+        Row: {
+          badge_type: string
+          child_id: string
+          created_at: string
+          earned_at: string
+          id: string
+        }
+        Insert: {
+          badge_type: string
+          child_id: string
+          created_at?: string
+          earned_at?: string
+          id?: string
+        }
+        Update: {
+          badge_type?: string
+          child_id?: string
+          created_at?: string
+          earned_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "badges_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "children"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       child_interests: {
         Row: {
           child_id: string
@@ -103,6 +135,38 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "child_progress_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: true
+            referencedRelation: "children"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      child_rewards: {
+        Row: {
+          child_id: string
+          created_at: string
+          id: string
+          level: number
+          xp_total: number
+        }
+        Insert: {
+          child_id: string
+          created_at?: string
+          id?: string
+          level?: number
+          xp_total?: number
+        }
+        Update: {
+          child_id?: string
+          created_at?: string
+          id?: string
+          level?: number
+          xp_total?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "child_rewards_child_id_fkey"
             columns: ["child_id"]
             isOneToOne: true
             referencedRelation: "children"
@@ -221,6 +285,7 @@ export type Database = {
           description: string | null
           duration_minutes: number
           id: string
+          is_daily_challenge: boolean
           module_id: string
           title: string
           type: string
@@ -235,6 +300,7 @@ export type Database = {
           description?: string | null
           duration_minutes?: number
           id?: string
+          is_daily_challenge?: boolean
           module_id: string
           title: string
           type: string
@@ -249,6 +315,7 @@ export type Database = {
           description?: string | null
           duration_minutes?: number
           id?: string
+          is_daily_challenge?: boolean
           module_id?: string
           title?: string
           type?: string
