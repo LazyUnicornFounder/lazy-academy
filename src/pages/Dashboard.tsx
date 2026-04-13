@@ -283,7 +283,7 @@ const Dashboard = () => {
             {progress && (
               <div className="flex items-center gap-1.5 text-sm font-medium text-[#c96442]">
                 <Flame className="h-4 w-4" />
-                <span>{progress.current_streak}</span>
+                <span>{progress.current_streak > 0 ? progress.current_streak : ""}</span>
               </div>
             )}
             <Button
@@ -590,9 +590,15 @@ const Dashboard = () => {
                 <div className="flex items-center gap-4 mt-4 pt-4 border-t border-[#e5e4de]">
                   <div className="flex items-center gap-1.5">
                     <Flame className="h-4 w-4 text-[#c96442]" />
-                    <span className="text-sm font-medium text-[#141413]">{progress?.current_streak || 0} day streak</span>
+                    <span className="text-sm font-medium text-[#141413]">
+                      {(progress?.current_streak || 0) > 0
+                        ? `${progress?.current_streak} day streak`
+                        : "Start your streak today!"}
+                    </span>
                   </div>
-                  <span className="text-xs text-[#87867f]">Best: {progress?.longest_streak || 0} days</span>
+                  {(progress?.longest_streak || 0) > 0 && (
+                    <span className="text-xs text-[#87867f]">Best: {progress?.longest_streak} days</span>
+                  )}
                 </div>
               </div>
             )}
