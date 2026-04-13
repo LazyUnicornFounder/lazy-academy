@@ -3,7 +3,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   GraduationCap, Flame, Lock, Eye, BookOpen, Wrench, Headphones,
   Gamepad2, HelpCircle, Check, LogOut, ChevronRight, Crown, Sparkles,
