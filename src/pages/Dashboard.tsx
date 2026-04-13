@@ -110,6 +110,8 @@ const Dashboard = () => {
   const [currentPlan, setCurrentPlan] = useState("free");
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
   const [regenerating, setRegenerating] = useState<string | null>(null);
+  const [rewards, setRewards] = useState<{ xp_total: number; level: number } | null>(null);
+  const [soundMuted, setSoundMuted] = useState(getMuted());
 
   const activeChild = children[activeChildIdx];
 
@@ -166,14 +168,16 @@ const Dashboard = () => {
 
   const loadChildData = async (childId: string) => {
     setDataLoading(true);
-    const [modsRes, lessonsRes, progRes] = await Promise.all([
+    const [modsRes, lessonsRes, progRes, rewardsRes] = await Promise.all([
       supabase.from("curriculum_modules").select("*").eq("child_id", childId).order("week_number"),
       supabase.from("lessons").select("*").eq("child_id", childId).order("day_number"),
       supabase.from("child_progress").select("*").eq("child_id", childId).single(),
+      supabase.from("child_rewards").select("*").eq("child_id", childId).single(),
     ]);
     setModules(modsRes.data || []);
     setLessons(lessonsRes.data || []);
     setProgress(progRes.data || null);
+    setRewards(rewardsRes.data || null);
     setDataLoading(false);
   };
 
