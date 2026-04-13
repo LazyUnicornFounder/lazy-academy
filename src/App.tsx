@@ -10,6 +10,8 @@ import Setup from "./pages/Setup.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import LessonDetail from "./pages/LessonDetail.tsx";
 import MyStuff from "./pages/MyStuff.tsx";
+import ParentDashboard from "./pages/ParentDashboard.tsx";
+import Settings from "./pages/Settings.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const App = () => (
             <Route path="/app" element={<Dashboard />} />
             <Route path="/app/lesson/:id" element={<LessonDetail />} />
             <Route path="/app/my-stuff" element={<MyStuff />} />
+            <Route path="/app/parent" element={<ParentDashboard />} />
+            <Route path="/app/settings" element={<Settings />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

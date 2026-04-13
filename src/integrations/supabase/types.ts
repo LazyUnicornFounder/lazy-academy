@@ -291,6 +291,8 @@ export type Database = {
           image_url: string | null
           is_daily_challenge: boolean
           module_id: string
+          review_count: number
+          review_due_at: string | null
           title: string
           type: string
         }
@@ -307,6 +309,8 @@ export type Database = {
           image_url?: string | null
           is_daily_challenge?: boolean
           module_id: string
+          review_count?: number
+          review_due_at?: string | null
           title: string
           type: string
         }
@@ -323,6 +327,8 @@ export type Database = {
           image_url?: string | null
           is_daily_challenge?: boolean
           module_id?: string
+          review_count?: number
+          review_due_at?: string | null
           title?: string
           type?: string
         }
@@ -343,6 +349,48 @@ export type Database = {
           },
         ]
       }
+      module_projects: {
+        Row: {
+          child_id: string
+          completed: boolean
+          completed_at: string | null
+          content_json: Json | null
+          created_at: string
+          description: string | null
+          id: string
+          instructions: string | null
+          module_id: string
+          photo_url: string | null
+          title: string
+        }
+        Insert: {
+          child_id: string
+          completed?: boolean
+          completed_at?: string | null
+          content_json?: Json | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          instructions?: string | null
+          module_id: string
+          photo_url?: string | null
+          title: string
+        }
+        Update: {
+          child_id?: string
+          completed?: boolean
+          completed_at?: string | null
+          content_json?: Json | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          instructions?: string | null
+          module_id?: string
+          photo_url?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null
@@ -351,6 +399,8 @@ export type Database = {
           onboarding_complete: boolean | null
           plan: string | null
           polar_customer_id: string | null
+          reminder_enabled: boolean
+          reminder_time: string | null
         }
         Insert: {
           created_at?: string | null
@@ -359,6 +409,8 @@ export type Database = {
           onboarding_complete?: boolean | null
           plan?: string | null
           polar_customer_id?: string | null
+          reminder_enabled?: boolean
+          reminder_time?: string | null
         }
         Update: {
           created_at?: string | null
@@ -367,6 +419,8 @@ export type Database = {
           onboarding_complete?: boolean | null
           plan?: string | null
           polar_customer_id?: string | null
+          reminder_enabled?: boolean
+          reminder_time?: string | null
         }
         Relationships: []
       }

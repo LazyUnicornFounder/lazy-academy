@@ -175,10 +175,22 @@ const LessonDetail = () => {
     setCompleting(true);
 
     try {
-      // Mark lesson complete
+      // Calculate next review date using Leitner system
+      const reviewCount = (lesson.review_count || 0);
+      const intervals = [3, 7, 14, 30]; // days
+      const nextInterval = intervals[Math.min(reviewCount, intervals.length - 1)];
+      const reviewDueAt = new Date();
+      reviewDueAt.setDate(reviewDueAt.getDate() + nextInterval);
+
+      // Mark lesson complete with review scheduling
       await supabase
         .from("lessons")
-        .update({ completed: true, completed_at: new Date().toISOString() })
+        .update({
+          completed: true,
+          completed_at: new Date().toISOString(),
+          review_due_at: reviewDueAt.toISOString(),
+          review_count: reviewCount + 1,
+        })
         .eq("id", lesson.id);
 
       // Update streak in child_progress
