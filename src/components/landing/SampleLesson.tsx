@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { BookOpen, Puzzle, Play, Paintbrush } from "lucide-react";
+import { BookOpen, Puzzle, Headphones, Paintbrush } from "lucide-react";
 
 const sections = [
   {
@@ -19,10 +19,10 @@ const sections = [
     bg: "bg-amber-50",
   },
   {
-    icon: Play,
-    label: "Watch",
+    icon: Headphones,
+    label: "Listen",
     title: "Mars in 5 Minutes",
-    desc: "A kid-friendly video tour of the Martian surface and its biggest volcano.",
+    desc: "A kid-friendly audio tour of the Martian surface and its biggest volcano.",
     color: "text-red-500",
     bg: "bg-red-50",
   },
@@ -44,7 +44,7 @@ const SampleLesson = () => {
           What a lesson looks like
         </h2>
         <p className="text-center text-muted-foreground mb-12 max-w-lg mx-auto">
-          Every lesson has four parts — read, do, watch, and create. Here's Day 7: Space + Math.
+          Every lesson has four parts — read, do, listen, and create. Here's Day 7: Space + Math.
         </p>
         <Card className="mx-auto max-w-2xl rounded-xl border shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
           <CardContent className="p-0">

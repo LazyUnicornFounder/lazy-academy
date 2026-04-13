@@ -3,7 +3,7 @@ import { OnboardingData } from "@/pages/Setup";
 import { Monitor, BookOpen, Hammer, Headphones, Gamepad2 } from "lucide-react";
 
 const PREFS = [
-  { id: "visual", label: "Visual", desc: "Videos, diagrams", icon: Monitor },
+  { id: "visual", label: "Visual", desc: "Diagrams, illustrations", icon: Monitor },
   { id: "reading", label: "Reading", desc: "Articles, books", icon: BookOpen },
   { id: "hands-on", label: "Hands-on", desc: "Projects, experiments", icon: Hammer },
   { id: "audio", label: "Audio", desc: "Podcasts, stories", icon: Headphones },

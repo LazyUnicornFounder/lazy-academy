@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     q: "How long is each lesson?",
-    a: "You choose — 15, 30, or 45 minutes per lesson. Each lesson has four sections (read, activity, watch, create) that you can do all at once or spread throughout the day.",
+    a: "You choose — 15, 30, or 45 minutes per lesson. Each lesson has four sections (read, activity, listen, create) that you can do all at once or spread throughout the day.",
   },
   {
     q: "Do I need special materials?",

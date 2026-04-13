@@ -14,7 +14,7 @@ const steps = [
   {
     icon: CalendarCheck,
     title: "One lesson per day",
-    desc: "Track progress, earn streaks, and watch them grow.",
+    desc: "Track progress, earn streaks, and see them grow.",
   },
 ];
 
