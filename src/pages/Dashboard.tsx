@@ -101,7 +101,7 @@ const PLANS = [
 ];
 
 const Dashboard = () => {
-  const { user, loading: authLoading, signOut } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -115,7 +115,6 @@ const Dashboard = () => {
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
   const [regenerating, setRegenerating] = useState<string | null>(null);
   const [rewards, setRewards] = useState<{ xp_total: number; level: number } | null>(null);
-  const [soundMuted, setSoundMuted] = useState(getMuted());
   const [reviewLessons, setReviewLessons] = useState<Lesson[]>([]);
   const [moduleProjects, setModuleProjects] = useState<any[]>([]);
   const [generatingProject, setGeneratingProject] = useState<string | null>(null);
