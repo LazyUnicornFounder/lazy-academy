@@ -61,6 +61,35 @@ interface ProgressData {
   longest_streak: number;
 }
 
+const PLANS = [
+  {
+    id: "free",
+    name: "Free",
+    price: "$0",
+    period: "7-day trial",
+    features: ["1 child", "7-day curriculum preview", "Basic lessons"],
+    polarProductId: "084d6fe1-7436-4119-b8ed-8e293b02020c",
+    current: true,
+  },
+  {
+    id: "family",
+    name: "Family",
+    price: "$9",
+    period: "/month",
+    features: ["Up to 3 children", "30-day curriculum", "Streaks & badges", "Curriculum adaptation"],
+    polarProductId: "4a532488-c7c1-417b-add9-7e7258c28cd1",
+    featured: true,
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    price: "$19",
+    period: "/month",
+    features: ["Up to 5 children", "Everything in Family", "Printable worksheets", "Parent guides", "Priority AI"],
+    polarProductId: "2df0280a-efab-45a4-8ce9-485f67210e0e",
+  },
+];
+
 const Dashboard = () => {
   const { user, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
@@ -73,6 +102,8 @@ const Dashboard = () => {
   const [progress, setProgress] = useState<ProgressData | null>(null);
   const [dataLoading, setDataLoading] = useState(true);
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
+  const [currentPlan, setCurrentPlan] = useState("free");
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
 
   const activeChild = children[activeChildIdx];
 
