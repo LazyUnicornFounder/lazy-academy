@@ -7,10 +7,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   GraduationCap, Flame, Lock, Eye, BookOpen, Wrench, Headphones,
   Gamepad2, HelpCircle, Check, LogOut, ChevronRight, Crown, Sparkles,
+  MoreHorizontal, RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const LESSON_ICONS: Record<string, any> = {
   video: Eye,
