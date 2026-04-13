@@ -473,21 +473,30 @@ const Dashboard = () => {
                 <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1">
                   {activeModuleLessons.map((lesson, i) => {
                     const Icon = LESSON_ICONS[lesson.type] || BookOpen;
+                    // Sequential lock: can only access if all previous lessons are completed
+                    const isLocked = i > 0 && !activeModuleLessons.slice(0, i).every((l) => l.completed);
                     return (
                       <motion.button
                         key={lesson.id}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        onClick={() => navigate(`/app/lesson/${lesson.id}`)}
-                        className={`flex-shrink-0 w-44 rounded-xl border p-4 text-left transition-all hover:shadow-[0_2px_8px_rgba(0,0,0,0.05)] ${
+                        onClick={() => !isLocked && navigate(`/app/lesson/${lesson.id}`)}
+                        disabled={isLocked}
+                        className={`flex-shrink-0 w-44 rounded-xl border p-4 text-left transition-all ${
                           lesson.completed
                             ? "bg-[#c96442]/5 border-[#c96442]/20"
-                            : "bg-white border-[#e5e4de]"
+                            : isLocked
+                            ? "bg-[#faf9f5] border-[#e5e4de] opacity-50 cursor-not-allowed"
+                            : "bg-white border-[#e5e4de] hover:shadow-[0_2px_8px_rgba(0,0,0,0.05)]"
                         }`}
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <Icon className={`h-4 w-4 ${lesson.completed ? "text-[#c96442]" : "text-[#87867f]"}`} />
+                          {isLocked ? (
+                            <Lock className="h-4 w-4 text-[#87867f]" />
+                          ) : (
+                            <Icon className={`h-4 w-4 ${lesson.completed ? "text-[#c96442]" : "text-[#87867f]"}`} />
+                          )}
                           {lesson.completed && <Check className="h-4 w-4 text-[#c96442]" />}
                         </div>
                         <p className="text-sm font-medium text-[#141413] line-clamp-2">{lesson.title}</p>
