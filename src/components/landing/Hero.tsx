@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import scienceImg from "@/assets/subjects/science.png";
@@ -42,9 +42,9 @@ const SUBJECTS = [
   { id: "sports", label: "Sports", img: sportsImg, bg: "bg-red-50", text: "text-red-600", border: "border-red-200" },
   { id: "cooking", label: "Cooking", img: cookingImg, bg: "bg-yellow-50", text: "text-yellow-600", border: "border-yellow-200" },
   { id: "reading", label: "Reading", img: readingImg, bg: "bg-sky-50", text: "text-sky-600", border: "border-sky-200" },
-  { id: "engineering", label: "Engineering", img: engineeringImg, bg: "bg-slate-50", text: "text-slate-600", border: "border-slate-200" },
+  { id: "engineering", label: "Engineering", img: engineeringImg, bg: "bg-stone-50", text: "text-stone-600", border: "border-stone-200" },
   { id: "photography", label: "Photography", img: photographyImg, bg: "bg-fuchsia-50", text: "text-fuchsia-600", border: "border-fuchsia-200" },
-  { id: "robotics", label: "Robotics", img: roboticsImg, bg: "bg-zinc-50", text: "text-zinc-600", border: "border-zinc-200" },
+  { id: "robotics", label: "Robotics", img: roboticsImg, bg: "bg-neutral-50", text: "text-neutral-600", border: "border-neutral-200" },
   { id: "dinosaurs", label: "Dinosaurs", img: dinosaursImg, bg: "bg-lime-50", text: "text-lime-600", border: "border-lime-200" },
   { id: "ocean", label: "Ocean Life", img: oceanImg, bg: "bg-blue-50", text: "text-blue-500", border: "border-blue-200" },
   { id: "magic", label: "Magic", img: magicImg, bg: "bg-purple-50", text: "text-purple-600", border: "border-purple-200" },
@@ -65,12 +65,30 @@ const Hero = () => {
   return (
     <section className="py-24 md:py-32 overflow-hidden">
       <div className="container text-center">
+        <p className="text-sm font-medium text-primary mb-4 tracking-wide uppercase">AI-powered learning adventures</p>
         <h1 className="mx-auto max-w-3xl text-4xl leading-tight md:text-6xl md:leading-tight text-foreground">
-          Your kid's personalized school. Built in 60 seconds.
+          Personalized learning your kids will actually love.
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-          Pick their age. Pick their interests. AI creates a 30-day curriculum with daily lessons they'll actually enjoy.
+          Pick their age. Pick their interests. AI creates a 30-day curriculum with daily lessons, quizzes, and hands-on activities — in 60 seconds.
         </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
+          <Button size="lg" className="h-14 px-8 text-base rounded-xl" asChild>
+            <Link to="/setup">
+              Start Free
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+          <Button variant="outline" size="lg" className="h-14 px-8 text-base rounded-xl border-border" asChild>
+            <a href="#how-it-works">
+              See how it works
+              <ChevronDown className="ml-2 h-4 w-4" />
+            </a>
+          </Button>
+        </div>
+
+        <p className="text-xs text-muted-foreground mt-4">Trusted by 2,400+ parents worldwide</p>
 
         {/* Subject ticker */}
         <div className="mt-12 relative space-y-3">
@@ -106,15 +124,6 @@ const Hero = () => {
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="mt-10">
-          <Button size="lg" className="h-14 px-8 text-base rounded-xl" asChild>
-            <Link to="/setup">
-              Create a Curriculum — Free
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
         </div>
       </div>
     </section>
