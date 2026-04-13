@@ -28,7 +28,7 @@ interface QuizQuestion {
   answer: string;
 }
 
-const QuizComponent = ({ questions, onComplete }: { questions: QuizQuestion[]; onComplete: () => void }) => {
+const QuizComponent = ({ questions, onComplete }: { questions: QuizQuestion[]; onComplete: (score: { correct: number; total: number }) => void }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -48,7 +48,7 @@ const QuizComponent = ({ questions, onComplete }: { questions: QuizQuestion[]; o
 
   const handleNext = () => {
     if (isLast) {
-      onComplete();
+      onComplete({ correct: score + (selected === q.answer ? 1 : 0), total: questions.length });
       return;
     }
     setSelected(null);
