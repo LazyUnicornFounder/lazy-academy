@@ -124,8 +124,20 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!user) return;
+    // Check onboarding status first
+    supabase
+      .from("profiles")
+      .select("onboarding_complete, plan")
+      .eq("id", user.id)
+      .single()
+      .then(({ data }) => {
+        if (data && !data.onboarding_complete) {
+          navigate("/setup", { replace: true });
+          return;
+        }
+        if (data?.plan) setCurrentPlan(data.plan);
+      });
     loadChildren();
-    loadProfile();
   }, [user]);
 
   const loadProfile = async () => {
