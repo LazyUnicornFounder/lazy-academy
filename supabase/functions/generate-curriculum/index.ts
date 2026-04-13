@@ -143,7 +143,7 @@ CRITICAL — CONTENT DEPTH REQUIREMENTS:
 - Each lesson MUST include 2-4 interactive exercises from these types:
 - matching: pairs of items to connect. Data: { pairs: [{ left: "item", right: "match" }] } — minimum 5 pairs for ages 8+
 - fill_blank: sentence with missing word. Data: { sentence: "The ___ is...", options: ["a","b","c","d"], answer: "b" } — sentence must require comprehension
-- sorting: put items in correct order. Data: { items: ["c","a","b"], correct_order: ["a","b","c"], instruction: "Sort by..." } — minimum 5 items for ages 8+
+- sorting: put items in SEQUENTIAL order (chronological, size, etc). NOT categorization. Data: { items: ["c","a","b"], correct_order: ["a","b","c"], instruction: "Sort from smallest to largest" } — 5-7 items max. The instruction must describe a clear linear ordering criterion, NOT grouping into categories.
 - drawing: creative prompt. Data: { prompt: "Draw what you think..." }
 Return JSON only, no markdown.`;
 
