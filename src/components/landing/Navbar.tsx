@@ -11,6 +11,7 @@ const Navbar = () => {
           <span className="font-serif text-xl text-foreground">LazyAcademy</span>
         </Link>
         <div className="hidden items-center gap-8 md:flex">
+          <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</a>
           <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">How it works</a>
           <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
           <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</a>

@@ -2,7 +2,7 @@ import { GraduationCap } from "lucide-react";
 
 const About = () => {
   return (
-    <section className="py-24 border-t border-border/50">
+    <section id="about" className="py-24 border-t border-border/50">
       <div className="container max-w-2xl text-center">
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 mb-6">
           <GraduationCap className="h-6 w-6 text-primary" />
