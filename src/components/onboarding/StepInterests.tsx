@@ -3,6 +3,8 @@ import { OnboardingData } from "@/pages/Setup";
 import {
   Microscope, Calculator, Landmark, Palette, Music, Leaf, Rocket,
   Dog, Code, Languages, Globe, Dumbbell, CookingPot, BookOpen, Wrench,
+  Drama, PenTool, Camera, Shirt, Bot, Bone, TreePine,
+  Fish, CloudSun, Wand2, Crown,
 } from "lucide-react";
 
 const INTERESTS = [
@@ -21,6 +23,17 @@ const INTERESTS = [
   { id: "cooking", label: "Cooking", icon: CookingPot },
   { id: "reading", label: "Reading", icon: BookOpen },
   { id: "engineering", label: "Engineering", icon: Wrench },
+  { id: "dance", label: "Dance", icon: Drama },
+  { id: "writing", label: "Writing", icon: PenTool },
+  { id: "photography", label: "Photography", icon: Camera },
+  { id: "fashion", label: "Fashion", icon: Shirt },
+  { id: "robotics", label: "Robotics", icon: Bot },
+  { id: "dinosaurs", label: "Dinosaurs", icon: Bone },
+  { id: "environment", label: "Environment", icon: TreePine },
+  { id: "ocean-life", label: "Ocean Life", icon: Fish },
+  { id: "weather", label: "Weather", icon: CloudSun },
+  { id: "magic-tricks", label: "Magic Tricks", icon: Wand2 },
+  { id: "chess", label: "Chess", icon: Crown },
 ];
 
 interface Props {
