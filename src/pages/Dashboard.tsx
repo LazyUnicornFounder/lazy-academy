@@ -59,6 +59,7 @@ interface Lesson {
   completed: boolean;
   completed_at: string | null;
   content_json: any;
+  is_daily_challenge: boolean;
 }
 
 interface ProgressData {
@@ -219,7 +220,7 @@ const Dashboard = () => {
   const completedInModule = activeModuleLessons.filter((l) => l.completed).length;
   const moduleProgress = activeModuleLessons.length > 0 ? (completedInModule / activeModuleLessons.length) * 100 : 0;
   const lockedModules = modules.filter((m) => m.status === "locked");
-  const dailyChallenge = lessons.find((l) => (l as any).is_daily_challenge && !l.completed);
+  const dailyChallenge = lessons.find((l) => l.is_daily_challenge && !l.completed);
 
   // Weekly progress for bar chart (last 7 day_numbers)
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
