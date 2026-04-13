@@ -5,9 +5,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowLeft, Eye, BookOpen, Wrench, Headphones, Gamepad2, HelpCircle,
+  ArrowLeft, BookOpen, Wrench, Headphones, Gamepad2, HelpCircle,
   Check, X, ChevronRight, Clock, Sparkles, Star,
 } from "lucide-react";
+import { MatchingExercise } from "@/components/exercises/MatchingExercise";
+import { FillBlankExercise } from "@/components/exercises/FillBlankExercise";
+import { SortingExercise } from "@/components/exercises/SortingExercise";
+import { DrawingExercise } from "@/components/exercises/DrawingExercise";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -17,7 +21,6 @@ import { LevelUpModal, BadgeEarnedModal, XpGainIndicator } from "@/components/en
 import { playDing, playApplause, playLevelUp } from "@/lib/sounds";
 
 const TYPE_CONFIG: Record<string, { icon: any; color: string; bg: string; label: string }> = {
-  video: { icon: Eye, color: "text-blue-700", bg: "bg-blue-100", label: "Video" },
   read: { icon: BookOpen, color: "text-green-700", bg: "bg-green-100", label: "Read" },
   hands_on: { icon: Wrench, color: "text-[#c96442]", bg: "bg-[#c96442]/10", label: "Hands-on" },
   audio: { icon: Headphones, color: "text-purple-700", bg: "bg-purple-100", label: "Audio" },
