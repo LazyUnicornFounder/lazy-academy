@@ -94,11 +94,13 @@ const ParentDashboard = () => {
     // Calculate lessons by interest (using module titles as proxy)
     const allLessons = lessonsRes.data || [];
     // Get all modules for this child
-    const { data: modules } = await supabase
+    const { data: modulesData } = await supabase
       .from("curriculum_modules")
-      .select("id, title")
-      .eq("child_id", childId);
-    const moduleMap = new Map((modules || []).map((m: any) => [m.id, m.title]));
+      .select("id, title, description, theme_emoji, week_number, status")
+      .eq("child_id", childId)
+      .order("week_number");
+    setModules(modulesData || []);
+    const moduleMap = new Map((modulesData || []).map((m: any) => [m.id, m.title]));
 
     // Count completed lessons per module title
     const counts: Record<string, number> = {};
