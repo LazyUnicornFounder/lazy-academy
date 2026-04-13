@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import {
-  GraduationCap, Flame, Lock, Eye, BookOpen, Wrench, Headphones,
+  GraduationCap, Flame, Lock, BookOpen, Wrench, Headphones,
   Gamepad2, HelpCircle, Check, LogOut, ChevronRight, Crown, Sparkles,
   MoreHorizontal, RefreshCw, Star, Trophy, Volume2, VolumeX, TrendingUp,
 } from "lucide-react";
@@ -19,7 +19,6 @@ import { getMuted, setMuted } from "@/lib/sounds";
 import { xpForNextLevel } from "@/lib/engagement";
 
 const LESSON_ICONS: Record<string, any> = {
-  video: Eye,
   read: BookOpen,
   hands_on: Wrench,
   audio: Headphones,

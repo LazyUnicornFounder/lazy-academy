@@ -5,9 +5,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowLeft, Eye, BookOpen, Wrench, Headphones, Gamepad2, HelpCircle,
+  ArrowLeft, BookOpen, Wrench, Headphones, Gamepad2, HelpCircle,
   Check, X, ChevronRight, Clock, Sparkles, Star,
 } from "lucide-react";
+import { MatchingExercise } from "@/components/exercises/MatchingExercise";
+import { FillBlankExercise } from "@/components/exercises/FillBlankExercise";
+import { SortingExercise } from "@/components/exercises/SortingExercise";
+import { DrawingExercise } from "@/components/exercises/DrawingExercise";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -17,7 +21,6 @@ import { LevelUpModal, BadgeEarnedModal, XpGainIndicator } from "@/components/en
 import { playDing, playApplause, playLevelUp } from "@/lib/sounds";
 
 const TYPE_CONFIG: Record<string, { icon: any; color: string; bg: string; label: string }> = {
-  video: { icon: Eye, color: "text-blue-700", bg: "bg-blue-100", label: "Video" },
   read: { icon: BookOpen, color: "text-green-700", bg: "bg-green-100", label: "Read" },
   hands_on: { icon: Wrench, color: "text-[#c96442]", bg: "bg-[#c96442]/10", label: "Hands-on" },
   audio: { icon: Headphones, color: "text-purple-700", bg: "bg-purple-100", label: "Audio" },
@@ -381,6 +384,18 @@ const LessonDetail = () => {
             )}
           </div>
 
+          {/* Hero image */}
+          {lesson.image_url && (
+            <div className="rounded-2xl overflow-hidden border border-[#e5e4de]">
+              <img
+                src={lesson.image_url}
+                alt={lesson.title}
+                className="w-full h-48 sm:h-64 object-cover"
+                loading="lazy"
+              />
+            </div>
+          )}
+
           {/* Instructions */}
           {content.instructions && (
             <div className="rounded-2xl bg-[#faf9f5] border border-[#e5e4de] p-6">
@@ -403,6 +418,42 @@ const LessonDetail = () => {
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {/* Interactive exercises */}
+          {content.exercises && content.exercises.length > 0 && (
+            <div className="space-y-4">
+              <p className="text-xs font-medium text-[#87867f] uppercase tracking-wide">Interactive exercises</p>
+              {content.exercises.map((ex: any, i: number) => {
+                if (ex.type === "matching" && ex.data?.pairs) {
+                  return <MatchingExercise key={i} pairs={ex.data.pairs} />;
+                }
+                if (ex.type === "fill_blank" && ex.data) {
+                  return (
+                    <FillBlankExercise
+                      key={i}
+                      sentence={ex.data.sentence}
+                      options={ex.data.options}
+                      answer={ex.data.answer}
+                    />
+                  );
+                }
+                if (ex.type === "sorting" && ex.data) {
+                  return (
+                    <SortingExercise
+                      key={i}
+                      items={ex.data.items}
+                      correctOrder={ex.data.correct_order}
+                      instruction={ex.data.instruction}
+                    />
+                  );
+                }
+                if (ex.type === "drawing" && ex.data?.prompt) {
+                  return <DrawingExercise key={i} prompt={ex.data.prompt} />;
+                }
+                return null;
+              })}
             </div>
           )}
 
