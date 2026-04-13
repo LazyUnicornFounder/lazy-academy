@@ -11,6 +11,7 @@ const Footer = () => {
             <span className="font-serif text-sm text-foreground">LazyAcademy</span>
           </div>
           <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
+            <a href="#safety" className="hover:text-foreground transition-colors">Safety</a>
             <a href="#about" className="hover:text-foreground transition-colors">About</a>
             <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
             <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
