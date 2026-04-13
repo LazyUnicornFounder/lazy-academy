@@ -294,13 +294,40 @@ const Dashboard = () => {
         {/* Child header */}
         {activeChild && (
           <div className="flex items-center gap-4 mb-8">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#faf9f5] border border-[#e5e4de] text-2xl">
-              {AVATARS[activeChild.avatar_url || "owl"] || "🦉"}
+            <div className="relative">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#faf9f5] border border-[#e5e4de] text-2xl">
+                {AVATARS[activeChild.avatar_url || "owl"] || "🦉"}
+              </div>
+              {rewards && (
+                <div className="absolute -bottom-1 -right-1 bg-[#c96442] text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full">
+                  {rewards.level}
+                </div>
+              )}
             </div>
-            <div>
+            <div className="flex-1">
               <h1 className="font-serif text-2xl text-[#141413]">{activeChild.name}'s Dashboard</h1>
               <p className="text-sm text-[#87867f]">Age {activeChild.age} • {progress?.total_lessons_completed || 0} lessons completed</p>
+              {rewards && (
+                <div className="flex items-center gap-2 mt-1.5">
+                  <div className="h-1.5 flex-1 max-w-[120px] rounded-full bg-[#e5e4de] overflow-hidden">
+                    <div
+                      className="h-full bg-[#c96442] rounded-full transition-all"
+                      style={{ width: `${(xpForNextLevel(rewards.xp_total).current / 100) * 100}%` }}
+                    />
+                  </div>
+                  <span className="text-[10px] text-[#87867f]">{xpForNextLevel(rewards.xp_total).current}/100 XP</span>
+                </div>
+              )}
             </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate("/app/my-stuff")}
+              className="border-[#e5e4de] text-[#5e5d59] rounded-xl text-xs"
+            >
+              <Trophy className="h-3.5 w-3.5 mr-1" />
+              My Stuff
+            </Button>
           </div>
         )}
 
