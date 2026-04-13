@@ -17,10 +17,14 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
+        <a
+          href="#"
+          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+          className="flex items-center gap-2"
+        >
           <GraduationCap className="h-7 w-7 text-primary" />
           <span className="font-serif text-xl text-foreground">LazyAcademy</span>
-        </Link>
+        </a>
         <div className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
             <a key={link.href} href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
