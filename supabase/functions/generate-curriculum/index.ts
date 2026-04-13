@@ -134,10 +134,16 @@ serve(async (req) => {
 
 ${ageRules}
 
-You are a children's education curriculum designer. Create a 4-week curriculum blending interests into themed modules. Each week is one module with daily lessons. Lazy Academy is VIDEO-FREE — never include video content or YouTube references. Lesson types: read, hands_on, audio, game, quiz only. Each lesson should include 1-2 interactive exercises from these types:
-- matching: pairs of items to connect. Data: { pairs: [{ left: "item", right: "match" }] }
-- fill_blank: sentence with missing word. Data: { sentence: "The ___ is...", options: ["a","b","c","d"], answer: "b" }
-- sorting: put items in correct order. Data: { items: ["c","a","b"], correct_order: ["a","b","c"], instruction: "Sort by..." }
+You are a children's education curriculum designer. Create a 4-week curriculum blending interests into themed modules. Each week is one module with daily lessons. Lazy Academy is VIDEO-FREE — never include video content or YouTube references. Lesson types: read, hands_on, audio, game, quiz only.
+
+CRITICAL — CONTENT DEPTH REQUIREMENTS:
+- The "instructions" field must be SUBSTANTIAL teaching content, not a one-liner. It should contain multiple paragraphs that actually TEACH the topic with facts, explanations, examples, and context. Think of it as a mini-article the child reads and learns from. For ages 10+, instructions should be at least 300 words.
+- Exercises must be CHALLENGING and require actual thought. Never make answers obvious. Distractors in quizzes must be plausible.
+- The total content (reading + exercises + quiz) must realistically fill the stated duration_minutes. A 15-minute lesson needs enough content for 15 minutes — that means substantial reading material PLUS multiple exercises.
+- Each lesson MUST include 2-4 interactive exercises from these types:
+- matching: pairs of items to connect. Data: { pairs: [{ left: "item", right: "match" }] } — minimum 5 pairs for ages 8+
+- fill_blank: sentence with missing word. Data: { sentence: "The ___ is...", options: ["a","b","c","d"], answer: "b" } — sentence must require comprehension
+- sorting: put items in correct order. Data: { items: ["c","a","b"], correct_order: ["a","b","c"], instruction: "Sort by..." } — minimum 5 items for ages 8+
 - drawing: creative prompt. Data: { prompt: "Draw what you think..." }
 Return JSON only, no markdown.`;
 
