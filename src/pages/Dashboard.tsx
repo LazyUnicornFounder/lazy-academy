@@ -3,14 +3,18 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   GraduationCap, Flame, Lock, Eye, BookOpen, Wrench, Headphones,
   Gamepad2, HelpCircle, Check, LogOut, ChevronRight, Crown, Sparkles,
+  MoreHorizontal, RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const LESSON_ICONS: Record<string, any> = {
   video: Eye,
@@ -101,9 +105,9 @@ const Dashboard = () => {
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [progress, setProgress] = useState<ProgressData | null>(null);
   const [dataLoading, setDataLoading] = useState(true);
-  const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
   const [currentPlan, setCurrentPlan] = useState("free");
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const [regenerating, setRegenerating] = useState<string | null>(null);
 
   const activeChild = children[activeChildIdx];
 
@@ -171,44 +175,26 @@ const Dashboard = () => {
     setDataLoading(false);
   };
 
-  const toggleLesson = async (lesson: Lesson) => {
-    const newCompleted = !lesson.completed;
-    await supabase
-      .from("lessons")
-      .update({
-        completed: newCompleted,
-        completed_at: newCompleted ? new Date().toISOString() : null,
-      })
-      .eq("id", lesson.id);
+  const handleRegenerate = async (moduleId: string) => {
+    if (!activeChild || regenerating) return;
+    setRegenerating(moduleId);
+    try {
+      // Delete existing lessons for this module
+      await supabase.from("lessons").delete().eq("module_id", moduleId);
+      // Delete the module
+      await supabase.from("curriculum_modules").delete().eq("id", moduleId);
 
-    // Update local state
-    setLessons((prev) =>
-      prev.map((l) =>
-        l.id === lesson.id
-          ? { ...l, completed: newCompleted, completed_at: newCompleted ? new Date().toISOString() : null }
-          : l
-      )
-    );
-
-    // Update progress
-    if (progress && activeChild) {
-      const newTotal = newCompleted
-        ? progress.total_lessons_completed + 1
-        : Math.max(0, progress.total_lessons_completed - 1);
-      const newStreak = newCompleted ? progress.current_streak + 1 : progress.current_streak;
-      const newLongest = Math.max(progress.longest_streak, newStreak);
-
-      await supabase
-        .from("child_progress")
-        .update({
-          total_lessons_completed: newTotal,
-          current_streak: newStreak,
-          longest_streak: newLongest,
-          last_activity_at: new Date().toISOString(),
-        })
-        .eq("child_id", activeChild.id);
-
-      setProgress({ ...progress, total_lessons_completed: newTotal, current_streak: newStreak, longest_streak: newLongest });
+      // Re-generate
+      const { error } = await supabase.functions.invoke("generate-curriculum", {
+        body: { child_id: activeChild.id, single_week: true },
+      });
+      if (error) throw error;
+      toast({ title: "Regenerated!", description: "Module has been refreshed with new content." });
+      await loadChildData(activeChild.id);
+    } catch (e: any) {
+      toast({ title: "Error", description: e.message || "Failed to regenerate", variant: "destructive" });
+    } finally {
+      setRegenerating(null);
     }
   };
 
@@ -402,6 +388,23 @@ const Dashboard = () => {
                     <div className="w-16">
                       <Progress value={moduleProgress} className="h-2" />
                     </div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button className="text-[#87867f] hover:text-[#141413] transition-colors p-1">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="bg-[#faf9f5] border-[#e5e4de]">
+                        <DropdownMenuItem
+                          onClick={() => handleRegenerate(activeModule.id)}
+                          disabled={!!regenerating}
+                          className="text-sm text-[#5e5d59]"
+                        >
+                          <RefreshCw className={`h-3.5 w-3.5 mr-2 ${regenerating === activeModule.id ? "animate-spin" : ""}`} />
+                          {regenerating === activeModule.id ? "Regenerating..." : "Regenerate Module"}
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 </div>
                 {activeModule.description && (
@@ -418,7 +421,7 @@ const Dashboard = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        onClick={() => setSelectedLesson(lesson)}
+                        onClick={() => navigate(`/app/lesson/${lesson.id}`)}
                         className={`flex-shrink-0 w-44 rounded-xl border p-4 text-left transition-all hover:shadow-[0_2px_8px_rgba(0,0,0,0.05)] ${
                           lesson.completed
                             ? "bg-[#c96442]/5 border-[#c96442]/20"
@@ -491,83 +494,6 @@ const Dashboard = () => {
         )}
       </div>
 
-      {/* Lesson detail modal */}
-      <AnimatePresence>
-        {selectedLesson && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
-            onClick={() => setSelectedLesson(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-lg rounded-2xl bg-[#faf9f5] border border-[#e5e4de] p-6 shadow-xl max-h-[80vh] overflow-y-auto"
-            >
-              {(() => {
-                const Icon = LESSON_ICONS[selectedLesson.type] || BookOpen;
-                const content = selectedLesson.content_json || {};
-                return (
-                  <>
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#c96442]/10">
-                        <Icon className="h-5 w-5 text-[#c96442]" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-[#87867f] capitalize">{selectedLesson.type.replace("_", " ")} • {selectedLesson.duration_minutes} min</p>
-                        <h3 className="font-serif text-lg text-[#141413]">{selectedLesson.title}</h3>
-                      </div>
-                    </div>
-
-                    {selectedLesson.description && (
-                      <p className="text-sm text-[#5e5d59] mb-4">{selectedLesson.description}</p>
-                    )}
-
-                    {content.instructions && (
-                      <div className="rounded-xl bg-white border border-[#e5e4de] p-4 mb-4">
-                        <p className="text-xs font-medium text-[#87867f] uppercase mb-2">Instructions</p>
-                        <p className="text-sm text-[#141413] whitespace-pre-wrap">{content.instructions}</p>
-                      </div>
-                    )}
-
-                    {content.materials && content.materials.length > 0 && (
-                      <div className="rounded-xl bg-white border border-[#e5e4de] p-4 mb-4">
-                        <p className="text-xs font-medium text-[#87867f] uppercase mb-2">Materials Needed</p>
-                        <ul className="text-sm text-[#141413] space-y-1">
-                          {content.materials.map((m: string, i: number) => (
-                            <li key={i} className="flex items-center gap-2">
-                              <ChevronRight className="h-3 w-3 text-[#c96442]" />
-                              {m}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    <Button
-                      onClick={() => {
-                        toggleLesson(selectedLesson);
-                        setSelectedLesson(null);
-                      }}
-                      className={`w-full h-12 rounded-xl ${
-                        selectedLesson.completed
-                          ? "bg-[#e5e4de] text-[#5e5d59] hover:bg-[#dddcd6]"
-                          : "bg-[#c96442] hover:bg-[#b5593a] text-white"
-                      }`}
-                    >
-                      {selectedLesson.completed ? "Mark as Incomplete" : "Mark as Complete ✓"}
-                    </Button>
-                  </>
-                );
-              })()}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };
