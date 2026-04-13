@@ -24,6 +24,7 @@ const Navbar = () => {
         >
           <GraduationCap className="h-7 w-7 text-primary" />
           <span className="font-serif text-xl text-foreground">LazyAcademy</span>
+          <span className="text-[10px] font-medium uppercase tracking-wider bg-primary/10 text-primary px-1.5 py-0.5 rounded-md leading-none">Beta</span>
         </a>
         <div className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
