@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Bell, Clock, LogOut, Trash2, User, Volume2, VolumeX } from "lucide-react";
+import { Bell, Clock, Crown, LogOut, Plus, Trash2, User, Volume2, VolumeX } from "lucide-react";
 import AppNav from "@/components/AppNav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,12 +48,19 @@ const Settings = () => {
   const [saving, setSaving] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [currentPlan, setCurrentPlan] = useState("free");
+  const [newChildName, setNewChildName] = useState("");
+  const [newChildAge, setNewChildAge] = useState(5);
+  const [newChildAvatar, setNewChildAvatar] = useState("owl");
+  const [addingChild, setAddingChild] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
 
   useEffect(() => {
     if (!user) return;
     setProfileEmail(user.email || "");
     loadSettings();
     loadChildren();
+    loadPlan();
   }, [user]);
 
   const loadSettings = async () => {
