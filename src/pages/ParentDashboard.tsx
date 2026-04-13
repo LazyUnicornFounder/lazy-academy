@@ -2,15 +2,16 @@ import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import {
   ArrowLeft, TrendingUp, Flame, Trophy, BookOpen, Star,
-  Clock, Calendar, Palette, ChevronRight, BarChart3,
+  Clock, Calendar, Palette, ChevronRight, BarChart3, Eye, RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BADGE_CONFIG } from "@/lib/engagement";
 
 const AVATARS: Record<string, string> = {
@@ -28,6 +29,7 @@ interface Child {
 const ParentDashboard = () => {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const [children, setChildren] = useState<Child[]>([]);
   const [activeIdx, setActiveIdx] = useState(0);
