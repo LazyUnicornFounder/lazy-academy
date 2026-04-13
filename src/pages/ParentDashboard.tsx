@@ -364,7 +364,50 @@ const ParentDashboard = () => {
               </motion.div>
             )}
 
-            {/* Project gallery */}
+            {/* Curriculum Modules - Preview Lessons */}
+            {modules.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.27 }}
+                className="rounded-2xl bg-[#faf9f5] border border-[#e5e4de] p-6"
+              >
+                <h3 className="font-serif text-base text-[#141413] mb-4">Curriculum Modules</h3>
+                <div className="space-y-3">
+                  {modules.map((mod: any) => (
+                    <div key={mod.id} className="flex items-center justify-between rounded-xl bg-white border border-[#e5e4de] px-4 py-3">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="text-lg">{mod.theme_emoji || "📚"}</span>
+                        <div className="min-w-0">
+                          <p className="text-sm text-[#141413] truncate">Week {mod.week_number}: {mod.title}</p>
+                          <p className="text-[10px] text-[#87867f] capitalize">{mod.status}</p>
+                        </div>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={async () => {
+                          setPreviewModule(mod);
+                          setPreviewLoading(true);
+                          const { data } = await supabase
+                            .from("lessons")
+                            .select("*")
+                            .eq("module_id", mod.id)
+                            .order("day_number");
+                          setPreviewLessons(data || []);
+                          setPreviewLoading(false);
+                        }}
+                        className="text-[#c96442] hover:text-[#b5593a] text-xs gap-1"
+                      >
+                        <Eye className="h-3.5 w-3.5" />
+                        Preview
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
             {projectPhotos.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
