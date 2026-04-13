@@ -14,9 +14,8 @@ const Footer = () => {
             <a href="#about" className="hover:text-foreground transition-colors">About</a>
             <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
             <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
-            <a href="mailto:hello@lazyacademy.com" className="hover:text-foreground transition-colors">Contact</a>
-            <Link to="/" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-            <Link to="/" className="hover:text-foreground transition-colors">Terms of Service</Link>
+            <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
           </div>
         </div>
         <div className="mt-8 pt-6 border-t">

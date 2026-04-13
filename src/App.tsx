@@ -12,6 +12,8 @@ import LessonDetail from "./pages/LessonDetail.tsx";
 import MyStuff from "./pages/MyStuff.tsx";
 import ParentDashboard from "./pages/ParentDashboard.tsx";
 import Settings from "./pages/Settings.tsx";
+import Privacy from "./pages/Privacy.tsx";
+import Terms from "./pages/Terms.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
