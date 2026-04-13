@@ -113,6 +113,9 @@ const Dashboard = () => {
   const [regenerating, setRegenerating] = useState<string | null>(null);
   const [rewards, setRewards] = useState<{ xp_total: number; level: number } | null>(null);
   const [soundMuted, setSoundMuted] = useState(getMuted());
+  const [reviewLessons, setReviewLessons] = useState<Lesson[]>([]);
+  const [moduleProjects, setModuleProjects] = useState<any[]>([]);
+  const [generatingProject, setGeneratingProject] = useState<string | null>(null);
 
   const activeChild = children[activeChildIdx];
 
