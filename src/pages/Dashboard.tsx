@@ -267,41 +267,31 @@ const Dashboard = () => {
     <div className="min-h-screen bg-[#f5f4ed]">
       {/* Top bar */}
       <header className="border-b border-[#e5e4de] bg-[#faf9f5]">
-        <div className="container flex h-16 items-center justify-between">
+        <div className="container flex h-14 items-center justify-between">
           <div className="flex items-center gap-3">
             <GraduationCap className="h-6 w-6 text-[#c96442]" />
-            <span className="font-serif text-lg text-[#141413]">LazyAcademy</span>
+            <span className="font-serif text-lg text-[#141413] hidden sm:inline">LazyAcademy</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 sm:gap-3">
             {rewards && (
               <button
                 onClick={() => navigate("/app/my-stuff")}
-                className="flex items-center gap-1.5 text-xs font-medium text-[#5e5d59] hover:text-[#141413] transition-colors px-2.5 py-1.5 rounded-lg bg-[#f5f4ed]"
+                className="flex items-center gap-1.5 text-xs font-medium text-[#5e5d59] hover:text-[#141413] transition-colors px-2 py-1.5 rounded-lg bg-[#f5f4ed]"
               >
                 <TrendingUp className="h-3.5 w-3.5 text-[#c96442]" />
                 <span>Lv.{rewards.level}</span>
-                <span className="text-[#87867f]">•</span>
-                <span>{rewards.xp_total} XP</span>
               </button>
             )}
-            {progress && (
-              <div className="flex items-center gap-1.5 text-sm font-medium text-[#c96442]">
+            {progress && progress.current_streak > 0 && (
+              <div className="flex items-center gap-1 text-sm font-medium text-[#c96442]">
                 <Flame className="h-4 w-4" />
-                <span>{progress.current_streak > 0 ? progress.current_streak : ""}</span>
+                <span>{progress.current_streak}</span>
               </div>
             )}
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-[#87867f] hover:text-[#141413]"
-              onClick={() => { const m = !soundMuted; setSoundMuted(m); setMuted(m); }}
-            >
-              {soundMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 text-[#87867f] hover:text-[#141413]"
+              className="h-9 w-9 text-[#87867f] hover:text-[#141413]"
               onClick={() => navigate("/app/parent")}
               title="Parent Dashboard"
             >
@@ -310,19 +300,11 @@ const Dashboard = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-[#87867f] hover:text-[#141413]"
+              className="h-9 w-9 text-[#87867f] hover:text-[#141413]"
               onClick={() => navigate("/app/settings")}
               title="Settings"
             >
               <Settings className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={async () => { await signOut(); navigate("/"); }}
-              className="text-[#87867f] hover:text-[#141413]"
-            >
-              <LogOut className="h-4 w-4" />
             </Button>
           </div>
         </div>
