@@ -86,11 +86,16 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "ticker-reverse": {
+          "0%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        ticker: "ticker 80s linear infinite",
+        ticker: "ticker 120s linear infinite",
+        "ticker-reverse": "ticker-reverse 120s linear infinite",
       },
     },
   },
