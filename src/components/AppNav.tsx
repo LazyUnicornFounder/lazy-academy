@@ -27,7 +27,7 @@ const AppNav = () => {
           className="flex items-center gap-2 shrink-0"
         >
           <GraduationCap className="h-5 w-5 text-[#c96442]" />
-          <span className="font-serif text-base text-[#141413] hidden sm:inline">LazyAcademy</span>
+          <span className="font-serif text-base text-[#141413] hidden sm:inline">Lazy Academy</span>
         </button>
 
         <nav className="flex items-center gap-1">

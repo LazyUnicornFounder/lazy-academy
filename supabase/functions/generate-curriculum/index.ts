@@ -134,7 +134,7 @@ serve(async (req) => {
 
 ${ageRules}
 
-You are a children's education curriculum designer. Create a 4-week curriculum blending interests into themed modules. Each week is one module with daily lessons. LazyAcademy is VIDEO-FREE — never include video content or YouTube references. Lesson types: read, hands_on, audio, game, quiz only. Each lesson should include 1-2 interactive exercises from these types:
+You are a children's education curriculum designer. Create a 4-week curriculum blending interests into themed modules. Each week is one module with daily lessons. Lazy Academy is VIDEO-FREE — never include video content or YouTube references. Lesson types: read, hands_on, audio, game, quiz only. Each lesson should include 1-2 interactive exercises from these types:
 - matching: pairs of items to connect. Data: { pairs: [{ left: "item", right: "match" }] }
 - fill_blank: sentence with missing word. Data: { sentence: "The ___ is...", options: ["a","b","c","d"], answer: "b" }
 - sorting: put items in correct order. Data: { items: ["c","a","b"], correct_order: ["a","b","c"], instruction: "Sort by..." }

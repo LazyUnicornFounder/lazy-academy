@@ -249,7 +249,7 @@ const Setup = () => {
         <div className="container flex h-14 items-center justify-between">
           <div className="flex items-center gap-3">
             <GraduationCap className="h-6 w-6 text-primary" />
-            <span className="font-serif text-lg text-foreground">LazyAcademy</span>
+            <span className="font-serif text-lg text-foreground">Lazy Academy</span>
           </div>
           {step < 6 && (
             <button

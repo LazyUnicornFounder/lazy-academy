@@ -63,7 +63,7 @@ serve(async (req) => {
        style="display:inline-block;background-color:#c96442;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:12px;font-size:14px;font-weight:600;">
       Start Today's Lesson
     </a>
-    <p style="color:#87867f;font-size:12px;margin-top:32px;">LazyAcademy — Part of Lazy Founder Ventures</p>
+    <p style="color:#87867f;font-size:12px;margin-top:32px;">Lazy Academy — Part of Lazy Founder Ventures</p>
   </div>
 </body>
 </html>`;
@@ -76,9 +76,9 @@ serve(async (req) => {
           "X-Connection-Api-Key": RESEND_API_KEY,
         },
         body: JSON.stringify({
-          from: "LazyAcademy <noreply@lazyacademy.com>",
+          from: "Lazy Academy <noreply@lazyacademy.com>",
           to: [profile.email],
-          subject: `Time for ${childName}'s lesson! — LazyAcademy`,
+          subject: `Time for ${childName}'s lesson! — Lazy Academy`,
           html,
         }),
       });

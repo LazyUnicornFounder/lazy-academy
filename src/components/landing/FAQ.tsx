@@ -8,7 +8,7 @@ import {
 const faqs = [
   {
     q: "What ages is this for?",
-    a: "LazyAcademy works for kids ages 3-16. The AI adjusts language complexity, activity types, and topics based on your child's age group.",
+    a: "Lazy Academy works for kids ages 3-16. The AI adjusts language complexity, activity types, and topics based on your child's age group.",
   },
   {
     q: "How long is each lesson?",
@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "Is this a replacement for school?",
-    a: "No — LazyAcademy is designed as a fun supplement to school, homeschool enrichment, or summer learning. It's meant to spark curiosity and make learning enjoyable.",
+    a: "No — Lazy Academy is designed as a fun supplement to school, homeschool enrichment, or summer learning. It's meant to spark curiosity and make learning enjoyable.",
   },
 ];
 

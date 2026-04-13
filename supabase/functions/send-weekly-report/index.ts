@@ -91,9 +91,9 @@ serve(async (req) => {
           "X-Connection-Api-Key": RESEND_API_KEY,
         },
         body: JSON.stringify({
-          from: "LazyAcademy <noreply@lazyacademy.com>",
+          from: "Lazy Academy <noreply@lazyacademy.com>",
           to: [profile.email],
-          subject: `${childName}'s Week in Review — LazyAcademy`,
+          subject: `${childName}'s Week in Review — Lazy Academy`,
           html,
         }),
       });
@@ -163,7 +163,7 @@ function buildWeeklyReportHtml(reports: any[]): string {
   <div style="max-width:560px;margin:0 auto;padding:32px 16px;">
     <div style="text-align:center;margin-bottom:32px;">
       <h1 style="font-family:Georgia,serif;font-size:24px;color:#141413;margin:0;">Weekly Learning Report</h1>
-      <p style="color:#87867f;font-size:14px;margin:8px 0 0;">LazyAcademy</p>
+      <p style="color:#87867f;font-size:14px;margin:8px 0 0;">Lazy Academy</p>
     </div>
     ${childSections}
     <div style="text-align:center;margin-top:24px;">
@@ -173,7 +173,7 @@ function buildWeeklyReportHtml(reports: any[]): string {
       </a>
     </div>
     <p style="text-align:center;color:#87867f;font-size:12px;margin-top:32px;">
-      LazyAcademy — Part of Lazy Founder Ventures
+      Lazy Academy — Part of Lazy Founder Ventures
     </p>
   </div>
 </body>

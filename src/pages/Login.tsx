@@ -91,7 +91,7 @@ const Login = () => {
         <CardHeader className="text-center">
           <Link to="/" className="mx-auto mb-4 flex items-center gap-2">
             <GraduationCap className="h-7 w-7 text-primary" />
-            <span className="font-serif text-xl text-foreground">LazyAcademy</span>
+            <span className="font-serif text-xl text-foreground">Lazy Academy</span>
           </Link>
           <CardTitle className="font-serif text-2xl">
             {isSignUp ? "Create your account" : "Welcome back"}

@@ -40,7 +40,7 @@ const Privacy = () => {
 
           <section>
             <h2 className="font-serif text-lg text-foreground">5. Children's Privacy (COPPA)</h2>
-            <p>LazyAcademy is designed for use by parents on behalf of their children. We do not knowingly collect information directly from children under 13. All accounts are created and managed by a parent or guardian.</p>
+            <p>Lazy Academy is designed for use by parents on behalf of their children. We do not knowingly collect information directly from children under 13. All accounts are created and managed by a parent or guardian.</p>
           </section>
 
           <section>
