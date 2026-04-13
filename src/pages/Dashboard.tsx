@@ -232,13 +232,32 @@ const Dashboard = () => {
             <GraduationCap className="h-6 w-6 text-[#c96442]" />
             <span className="font-serif text-lg text-[#141413]">LazyAcademy</span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            {rewards && (
+              <button
+                onClick={() => navigate("/app/my-stuff")}
+                className="flex items-center gap-1.5 text-xs font-medium text-[#5e5d59] hover:text-[#141413] transition-colors px-2.5 py-1.5 rounded-lg bg-[#f5f4ed]"
+              >
+                <TrendingUp className="h-3.5 w-3.5 text-[#c96442]" />
+                <span>Lv.{rewards.level}</span>
+                <span className="text-[#87867f]">•</span>
+                <span>{rewards.xp_total} XP</span>
+              </button>
+            )}
             {progress && (
               <div className="flex items-center gap-1.5 text-sm font-medium text-[#c96442]">
                 <Flame className="h-4 w-4" />
                 <span>{progress.current_streak}</span>
               </div>
             )}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-[#87867f] hover:text-[#141413]"
+              onClick={() => { const m = !soundMuted; setSoundMuted(m); setMuted(m); }}
+            >
+              {soundMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+            </Button>
             <Button
               variant="ghost"
               size="sm"
