@@ -108,6 +108,7 @@ const Dashboard = () => {
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
   const [currentPlan, setCurrentPlan] = useState("free");
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const [regenerating, setRegenerating] = useState<string | null>(null);
 
   const activeChild = children[activeChildIdx];
 
