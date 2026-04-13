@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, BookOpen, Wrench, Headphones, Gamepad2, HelpCircle,
-  Check, X, ChevronRight, Clock, Sparkles, Star,
+  Check, X, ChevronRight, Clock, Sparkles, Star, Flag,
 } from "lucide-react";
 import { MatchingExercise } from "@/components/exercises/MatchingExercise";
 import { FillBlankExercise } from "@/components/exercises/FillBlankExercise";
@@ -15,7 +15,10 @@ import { DrawingExercise } from "@/components/exercises/DrawingExercise";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { awardLessonCompletion, type EngagementResult } from "@/lib/engagement";
 import { LevelUpModal, BadgeEarnedModal, XpGainIndicator } from "@/components/engagement/EngagementModals";
 import { playDing, playApplause, playLevelUp } from "@/lib/sounds";
