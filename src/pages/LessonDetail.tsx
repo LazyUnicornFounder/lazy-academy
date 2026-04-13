@@ -571,6 +571,53 @@ const LessonDetail = () => {
           badgeTypes={engagementResult.newBadges}
         />
       )}
+
+      {/* Report content modal */}
+      <Dialog open={showReport} onOpenChange={setShowReport}>
+        <DialogContent className="bg-[#faf9f5] border-[#e5e4de] rounded-2xl max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="font-serif text-lg text-[#141413]">What's wrong?</DialogTitle>
+          </DialogHeader>
+          <RadioGroup value={reportReason} onValueChange={setReportReason} className="space-y-3">
+            {["Inappropriate", "Scary", "Incorrect", "Other"].map((r) => (
+              <div key={r} className="flex items-center gap-2">
+                <RadioGroupItem value={r} id={`reason-${r}`} />
+                <Label htmlFor={`reason-${r}`} className="text-sm text-[#5e5d59]">{r}</Label>
+              </div>
+            ))}
+          </RadioGroup>
+          {reportReason === "Other" && (
+            <Textarea
+              value={reportDetails}
+              onChange={(e) => setReportDetails(e.target.value)}
+              placeholder="Tell us more..."
+              className="bg-white border-[#e5e4de] text-sm"
+              maxLength={500}
+            />
+          )}
+          <Button
+            disabled={reportSubmitting}
+            onClick={async () => {
+              if (!user || !lesson) return;
+              setReportSubmitting(true);
+              await supabase.from("content_reports").insert({
+                lesson_id: lesson.id,
+                user_id: user.id,
+                reason: reportReason,
+                details: reportReason === "Other" ? reportDetails : null,
+              });
+              setReportSubmitting(false);
+              setShowReport(false);
+              setReportReason("Inappropriate");
+              setReportDetails("");
+              toast({ title: "Report submitted", description: "Thank you for helping keep content safe." });
+            }}
+            className="w-full h-11 rounded-xl bg-[#c96442] hover:bg-[#b5593a] text-white"
+          >
+            {reportSubmitting ? "Submitting..." : "Submit Report"}
+          </Button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
