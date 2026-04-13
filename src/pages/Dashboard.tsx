@@ -110,7 +110,39 @@ const Dashboard = () => {
   useEffect(() => {
     if (!user) return;
     loadChildren();
+    loadProfile();
   }, [user]);
+
+  const loadProfile = async () => {
+    const { data } = await supabase
+      .from("profiles")
+      .select("plan")
+      .eq("id", user!.id)
+      .single();
+    if (data?.plan) setCurrentPlan(data.plan);
+  };
+
+  const handleUpgrade = async (polarProductId: string, planId: string) => {
+    if (!user) return;
+    setCheckoutLoading(planId);
+    try {
+      const { data, error } = await supabase.functions.invoke("polar-checkout", {
+        body: {
+          product_id: polarProductId,
+          user_id: user.id,
+          success_url: `${window.location.origin}/app?checkout_id={CHECKOUT_ID}`,
+        },
+      });
+      if (error) throw error;
+      if (data?.url) {
+        window.location.href = data.url;
+      }
+    } catch (e: any) {
+      toast({ title: "Error", description: e.message || "Failed to start checkout", variant: "destructive" });
+    } finally {
+      setCheckoutLoading(null);
+    }
+  };
 
   useEffect(() => {
     if (!activeChild) return;
