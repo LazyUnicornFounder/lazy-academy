@@ -34,6 +34,8 @@ const App = () => (
             <Route path="/app/my-stuff" element={<MyStuff />} />
             <Route path="/app/parent" element={<ParentDashboard />} />
             <Route path="/app/settings" element={<Settings />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
