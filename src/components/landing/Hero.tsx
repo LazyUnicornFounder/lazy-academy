@@ -79,17 +79,17 @@ const Hero = () => {
               <Link
                 key={`${subject.id}-${i}`}
                 to="/setup"
-                className={`flex items-center gap-2.5 rounded-xl border px-4 py-2.5 transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] ${subject.bg} ${subject.border}`}
+                className={`flex flex-col items-center rounded-xl border overflow-hidden transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] ${subject.bg} ${subject.border} w-28 shrink-0`}
               >
                 <img
                   src={subject.img}
                   alt={subject.label}
-                  width={28}
-                  height={28}
+                  width={112}
+                  height={112}
                   loading="lazy"
-                  className="h-7 w-7 object-contain"
+                  className="w-28 h-28 object-cover"
                 />
-                <span className={`text-sm font-medium whitespace-nowrap ${subject.text}`}>{subject.label}</span>
+                <span className={`text-xs font-medium whitespace-nowrap py-2 ${subject.text}`}>{subject.label}</span>
               </Link>
             ))}
           </div>
