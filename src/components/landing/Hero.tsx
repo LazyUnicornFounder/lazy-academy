@@ -56,7 +56,10 @@ const SUBJECTS = [
   { id: "environment", label: "Environment", img: environmentImg, bg: "bg-emerald-50", text: "text-emerald-500", border: "border-emerald-200" },
 ];
 
-const TICKER_ITEMS = [...SUBJECTS, ...SUBJECTS];
+const ROW1 = SUBJECTS.slice(0, 13);
+const ROW2 = SUBJECTS.slice(13);
+const TICKER_ROW1 = [...ROW1, ...ROW1];
+const TICKER_ROW2 = [...ROW2, ...ROW2];
 
 const Hero = () => {
   return (
@@ -70,28 +73,38 @@ const Hero = () => {
         </p>
 
         {/* Subject ticker */}
-        <div className="mt-12 relative">
+        <div className="mt-12 relative space-y-3">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
 
-          <div className="flex animate-ticker gap-3 w-max">
-            {TICKER_ITEMS.map((subject, i) => (
-              <Link
-                key={`${subject.id}-${i}`}
-                to="/setup"
-                className={`flex flex-col items-center rounded-xl border overflow-hidden transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] ${subject.bg} ${subject.border} w-28 shrink-0`}
-              >
-                <img
-                  src={subject.img}
-                  alt={subject.label}
-                  width={112}
-                  height={112}
-                  loading="lazy"
-                  className="w-28 h-28 object-cover"
-                />
-                <span className={`text-xs font-medium whitespace-nowrap py-2 ${subject.text}`}>{subject.label}</span>
-              </Link>
-            ))}
+          <div className="overflow-hidden">
+            <div className="flex animate-ticker gap-3 w-max">
+              {TICKER_ROW1.map((subject, i) => (
+                <Link
+                  key={`r1-${subject.id}-${i}`}
+                  to="/setup"
+                  className={`flex flex-col items-center rounded-xl border overflow-hidden transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] ${subject.bg} ${subject.border} w-28 shrink-0`}
+                >
+                  <img src={subject.img} alt={subject.label} width={112} height={112} loading="lazy" className="w-28 h-28 object-cover" />
+                  <span className={`text-xs font-medium whitespace-nowrap py-2 ${subject.text}`}>{subject.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="overflow-hidden">
+            <div className="flex animate-ticker-reverse gap-3 w-max">
+              {TICKER_ROW2.map((subject, i) => (
+                <Link
+                  key={`r2-${subject.id}-${i}`}
+                  to="/setup"
+                  className={`flex flex-col items-center rounded-xl border overflow-hidden transition-all hover:scale-105 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] ${subject.bg} ${subject.border} w-28 shrink-0`}
+                >
+                  <img src={subject.img} alt={subject.label} width={112} height={112} loading="lazy" className="w-28 h-28 object-cover" />
+                  <span className={`text-xs font-medium whitespace-nowrap py-2 ${subject.text}`}>{subject.label}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
 
