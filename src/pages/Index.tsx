@@ -5,6 +5,7 @@ import HowItWorks from "@/components/landing/HowItWorks";
 import SampleLesson from "@/components/landing/SampleLesson";
 import Pricing from "@/components/landing/Pricing";
 import FAQ from "@/components/landing/FAQ";
+import About from "@/components/landing/About";
 import Footer from "@/components/landing/Footer";
 
 const Index = () => {
@@ -17,6 +18,7 @@ const Index = () => {
       <SampleLesson />
       <Pricing />
       <FAQ />
+      <About />
       <Footer />
     </div>
   );
