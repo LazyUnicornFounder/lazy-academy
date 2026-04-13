@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
@@ -8,14 +8,33 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { GraduationCap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (authLoading || !user) return;
+    (async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("onboarding_complete")
+        .eq("id", user.id)
+        .single();
+      if (data?.onboarding_complete) {
+        navigate("/app", { replace: true });
+      } else {
+        navigate("/setup", { replace: true });
+      }
+    })();
+  }, [user, authLoading, navigate]);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,9 +55,8 @@ const Login = () => {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
         toast({ title: "Error", description: error.message, variant: "destructive" });
-      } else {
-        navigate("/setup");
       }
+      // Redirect handled by useEffect above
     }
     setLoading(false);
   };
@@ -56,13 +74,20 @@ const Login = () => {
     }
 
     if (result.redirected) return;
-
-    navigate("/setup");
+    // Redirect handled by useEffect above
   };
 
+  if (authLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <Card className="w-full max-w-md rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+    <div className="flex min-h-screen items-center justify-center px-4 bg-background">
+      <Card className="w-full max-w-md rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
         <CardHeader className="text-center">
           <Link to="/" className="mx-auto mb-4 flex items-center gap-2">
             <GraduationCap className="h-7 w-7 text-primary" />
@@ -78,7 +103,7 @@ const Login = () => {
         <CardContent className="space-y-4">
           <Button
             variant="outline"
-            className="w-full h-12 rounded-lg text-sm"
+            className="w-full h-12 rounded-xl text-sm"
             onClick={handleGoogleSignIn}
             disabled={loading}
           >
@@ -110,7 +135,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="h-12 rounded-lg"
+                className="h-12 rounded-xl"
               />
             </div>
             <div className="space-y-2">
@@ -123,10 +148,10 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="h-12 rounded-lg"
+                className="h-12 rounded-xl"
               />
             </div>
-            <Button type="submit" className="w-full h-12 rounded-lg" disabled={loading}>
+            <Button type="submit" className="w-full h-12 rounded-xl" disabled={loading}>
               {loading ? "Loading..." : isSignUp ? "Create Account" : "Log In"}
             </Button>
           </form>
