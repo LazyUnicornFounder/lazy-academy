@@ -106,6 +106,7 @@ const Dashboard = () => {
   const [currentPlan, setCurrentPlan] = useState("free");
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
   const [regenerating, setRegenerating] = useState<string | null>(null);
+  const [generating, setGenerating] = useState(false);
   const [rewards, setRewards] = useState<{ xp_total: number; level: number } | null>(null);
   const [reviewLessons, setReviewLessons] = useState<Lesson[]>([]);
   const [moduleProjects, setModuleProjects] = useState<any[]>([]);
@@ -396,9 +397,42 @@ const Dashboard = () => {
           </div>
         ) : modules.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-[#87867f] text-lg">No curriculum yet. Complete onboarding to generate one!</p>
-            <Button onClick={() => navigate("/setup")} className="mt-4 bg-[#c96442] hover:bg-[#b5593a]">
-              Start Onboarding
+            <Rocket className="h-10 w-10 text-[#c96442] mx-auto mb-4" />
+            <h2 className="font-serif text-xl text-[#141413] mb-2">No curriculum yet</h2>
+            <p className="text-[#87867f] text-sm mb-6 max-w-sm mx-auto">
+              Generate a personalized 4-week learning plan for {activeChild?.name}.
+            </p>
+            <Button
+              onClick={async () => {
+                if (!activeChild) return;
+                setGenerating(true);
+                try {
+                  const { error } = await supabase.functions.invoke("generate-curriculum", {
+                    body: { child_id: activeChild.id },
+                  });
+                  if (error) throw error;
+                  toast({ title: "Curriculum generated!", description: "Your new lessons are ready." });
+                  window.location.reload();
+                } catch (e: any) {
+                  toast({ title: "Error", description: e.message || "Failed to generate curriculum", variant: "destructive" });
+                } finally {
+                  setGenerating(false);
+                }
+              }}
+              disabled={generating}
+              className="bg-[#c96442] hover:bg-[#b5593a] rounded-xl"
+            >
+              {generating ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Generating... (this takes ~1 min)
+                </>
+              ) : (
+                <>
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  Generate Curriculum
+                </>
+              )}
             </Button>
           </div>
         ) : (
