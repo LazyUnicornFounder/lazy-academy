@@ -9,6 +9,7 @@ import Pricing from "@/components/landing/Pricing";
 import FAQ from "@/components/landing/FAQ";
 import About from "@/components/landing/About";
 import Footer from "@/components/landing/Footer";
+import OpenSourceBanner from "@/components/OpenSourceBanner";
 
 const Index = () => {
   return (
@@ -24,6 +25,7 @@ const Index = () => {
       <FAQ />
       <About />
       <Footer />
+          <OpenSourceBanner />
     </div>
   );
 };
